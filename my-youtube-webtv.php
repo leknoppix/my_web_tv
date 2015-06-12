@@ -17,3 +17,4 @@ include_once(dirname(__FILE__)."/lib/general/function.php");
 include_once(dirname(__FILE__)."/front/shortcode.php");
 /* création du menu */
 add_action('admin_menu', 'add_menu');
+add_filter('the_content', '');

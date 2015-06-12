@@ -31,7 +31,7 @@ function getPlaylistId($youtube, $youtubeforusername){
 	$response = $youtube->channels->listChannels('id,contentDetails', ['forUsername' => $youtubeforusername]);
 	/* récupération de l'id de la chaine */
 	$uploadsListId = $response['items'][0]['contentDetails']['relatedPlaylists']['uploads'];
-	return $uploadsListId;
+	echo $uploadsListId;
 }
 /* Récupérer la liste des videos */
 function getListVideoInfo($youtube, $uploadsListId, $maxResults, $order, $champstri){
@@ -62,14 +62,14 @@ function getListVideoInfo($youtube, $uploadsListId, $maxResults, $order, $champs
 		} else {
 			krsort($tableau);
 		}
-		return $tableau;
+		echo $tableau;
 }
 /* Récupération de la durée d'un vidéo Clé */
 function getVideoDuration($youtube, $VideoId){
 	$id = $youtube->videos->listVideos('contentDetails',['id' => $VideoId]);
 	$dureenonencode= $id['items'][0]['contentDetails']['duration'];
 	$duree = (new DateInterval($dureenonencode))->format('%imin%s');
-	return $duree;
+	echo $duree;
 }
 function parsearray($arrays = null){
 	foreach($arrays as $title => $key){
