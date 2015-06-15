@@ -119,6 +119,7 @@ function admin_youtube_params(){
 }
 // Fonction pour récupérer le token de transaction avec Youtube
 function admin_youtube_token(){
+	$retourne='';
 	$newoptions = get_option('my_webtvparams');
 	if(!isset($newoptions['youtube_token']))
 	{
@@ -151,6 +152,7 @@ function admin_youtube_token(){
 		}
 		else
 		{
+			debug($newoptions);
 			$link = admin_url('admin.php?page=admin_youtube_token');
 			$clientId = $newoptions['youtube_oauth_client'];
 			$clientSecret = $newoptions['youtube_password_oauth_client'];
