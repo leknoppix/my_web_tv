@@ -31,7 +31,7 @@ function getPlaylistId($youtube, $youtubeforusername){
 	$response = $youtube->channels->listChannels('id,contentDetails', ['forUsername' => $youtubeforusername]);
 	/* récupération de l'id de la chaine */
 	$uploadsListId = $response['items'][0]['contentDetails']['relatedPlaylists']['uploads'];
-	echo $uploadsListId;
+	return $uploadsListId;
 }
 /* Récupérer la liste des videos */
 function getListVideoInfo($youtube, $uploadsListId, $maxResults, $order, $champstri){
@@ -62,21 +62,23 @@ function getListVideoInfo($youtube, $uploadsListId, $maxResults, $order, $champs
 		} else {
 			krsort($tableau);
 		}
-		echo $tableau;
+		return $tableau;
 }
 /* Récupération de la durée d'un vidéo Clé */
 function getVideoDuration($youtube, $VideoId){
 	$id = $youtube->videos->listVideos('contentDetails',['id' => $VideoId]);
 	$dureenonencode= $id['items'][0]['contentDetails']['duration'];
 	$duree = (new DateInterval($dureenonencode))->format('%imin%s');
-	echo $duree;
+	return $duree;
 }
 function parsearray($arrays = null){
+	$retourne='';
 	foreach($arrays as $title => $key){
-		echo "<h1>" . $key->title . "</h1>";
-		echo "<p>" . nl2br( $key->description ) . "</p>";
-		echo "<a href=\"http://www.youtube.com/watch?v=". $key->videoId ."\"><img src=\"".$key->ImageUrl . "\" title=\"" . $key->title . "\" alt=\"" . $key->title ."\" /></a>";
-		echo "<hr />";
+		$retourne.= "<h1>" . $key->title . "</h1>";
+		$retourne.= "<p>" . nl2br( $key->description ) . "</p>";
+		$retourne.= "<a href=\"http://www.youtube.com/watch?v=". $key->videoId ."\"><img src=\"".$key->ImageUrl . "\" title=\"" . $key->title . "\" alt=\"" . $key->title ."\" /></a>";
+		$retourne.= "<hr />";
 	}
+	echo $retourne;
 }
 add_shortcode('ListVideo', 'mywt_ListVideo');

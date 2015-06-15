@@ -10,11 +10,10 @@
 * Author URI: http://local.fr
 * License: Private
 */
-include_once(dirname(__FILE__)."/back/init.php");
 include_once(dirname(__FILE__)."/vendor/autoload.php");
-include_once(dirname(__FILE__)."/back/functions.php");
-include_once(dirname(__FILE__)."/lib/general/function.php");
-include_once(dirname(__FILE__)."/front/shortcode.php");
+include_once(dirname(__FILE__)."/admin/init.php");
+include_once(dirname(__FILE__)."/admin/functions.php");
+include_once(dirname(__FILE__)."/lib/function.php");
+include_once(dirname(__FILE__)."/public/shortcode.php");
 /* création du menu */
 add_action('admin_menu', 'add_menu');
-add_filter('the_content', '');
