@@ -121,7 +121,7 @@ function admin_youtube_params(){
 function admin_youtube_token(){
 	$retourne='';
 	$newoptions = get_option('my_webtvparams');
-	if(!isset($newoptions['youtube_token']))
+	if(!isset($newoptions['youtube_token'])&&!empty($newoptions['youtube_token']))
 	{
 		$retourne.= '<div class="wrap widefat fixed posts">';
 		$retourne.= '<h1>';
@@ -129,6 +129,7 @@ function admin_youtube_token(){
 		$retourne.= '</h1>';
 		$retourne.= "<h3>Attention, le token est déjà connu. Pour le régénérer, veuiller cliquez sur <a href=\"admin.php?page=admin_youtube_params\">réglage du plugin</a>.</h3>";
 		$retourne.= "</div>";
+		echo $retourne;
 	}
 	else
 	{
@@ -147,12 +148,11 @@ function admin_youtube_token(){
 			$token = $client->getAccessToken();
 			$newoptions['youtube_token']=$token;
 			update_option('my_webtvparams', $newoptions);
-			wp_redirect($link);
+			wp_redirect('admin.php?page=admin_youtube_token');
 			exit();
 		}
 		else
 		{
-			debug($newoptions);
 			$link = admin_url('admin.php?page=admin_youtube_token');
 			$clientId = $newoptions['youtube_oauth_client'];
 			$clientSecret = $newoptions['youtube_password_oauth_client'];
@@ -169,9 +169,9 @@ function admin_youtube_token(){
 			$retourne.= "<p>Ce page va vous permettre de créer le token d'identification qui permettra d'envoyer les videos vers la plateforme Youtube, sans avoir besoin d'utiliser les identifiants YT.<br />";
 			$retourne.= "Pour cela, cliquez sur le <a href=\"".$client->createAuthUrl()."\">lien suivant</a> et suivez les instructions.</p>";
 			$retourne.= "</div>";
+			echo $retourne;
 		}
 	}
-	echo $retourne;
 }
 // Fonction pour lister les vidéos
 function admin_youtube_listing(){
