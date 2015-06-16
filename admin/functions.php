@@ -121,7 +121,7 @@ function admin_youtube_params(){
 function admin_youtube_token(){
 	$retourne='';
 	$newoptions = get_option('my_webtvparams');
-	if(!isset($newoptions['youtube_token'])&&!empty($newoptions['youtube_token']))
+	if(isset($newoptions['youtube_token'])&&!empty($newoptions['youtube_token']))
 	{
 		$retourne.= '<div class="wrap widefat fixed posts">';
 		$retourne.= '<h1>';
@@ -148,8 +148,14 @@ function admin_youtube_token(){
 			$token = $client->getAccessToken();
 			$newoptions['youtube_token']=$token;
 			update_option('my_webtvparams', $newoptions);
-			wp_redirect('admin.php?page=admin_youtube_token');
-			exit();
+			/* a améliorer */
+			?>
+			<script type="text/javascript">
+				document.location.href="<?php echo $link; ?>"
+			</script>
+			<?php
+			//wp_redirect($link, 302);
+			//exit();
 		}
 		else
 		{
