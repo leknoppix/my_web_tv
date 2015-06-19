@@ -1,4 +1,8 @@
 <?php
+function redirection($link = null){
+	header('Location: ' . $link);
+	die();
+}
 function admin_youtube(){
 }
 // Fonction pour enregistrer les paramètres
@@ -115,7 +119,7 @@ function admin_youtube_params(){
 	$retourne.= '</fieldset>';
 	$retourne.= '<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Enregistrer les modifications"  /></p></form>';    
 	$retourne.= "</div>";
-	echo $retourne;
+	write($retourne);
 }
 // Fonction pour récupérer le token de transaction avec Youtube
 function admin_youtube_token(){
@@ -129,7 +133,7 @@ function admin_youtube_token(){
 		$retourne.= '</h1>';
 		$retourne.= "<h3>Attention, le token est déjà connu. Pour le régénérer, veuiller cliquez sur <a href=\"admin.php?page=admin_youtube_params\">réglage du plugin</a>.</h3>";
 		$retourne.= "</div>";
-		echo $retourne;
+		write($retourne);
 	}
 	else
 	{
@@ -149,13 +153,16 @@ function admin_youtube_token(){
 			$newoptions['youtube_token']=$token;
 			update_option('my_webtvparams', $newoptions);
 			/* a améliorer */
+			/*
 			?>
 			<script type="text/javascript">
 				document.location.href="<?php echo $link; ?>"
 			</script>
 			<?php
-			//wp_redirect($link, 302);
-			//exit();
+			*/
+			 add_action('init', 'redirection', 1, 1);
+			 do_action('init', $link);
+			// wp_redirect($link, 302);
 		}
 		else
 		{
@@ -175,7 +182,7 @@ function admin_youtube_token(){
 			$retourne.= "<p>Ce page va vous permettre de créer le token d'identification qui permettra d'envoyer les videos vers la plateforme Youtube, sans avoir besoin d'utiliser les identifiants YT.<br />";
 			$retourne.= "Pour cela, cliquez sur le <a href=\"".$client->createAuthUrl()."\">lien suivant</a> et suivez les instructions.</p>";
 			$retourne.= "</div>";
-			echo $retourne;
+			write($retourne);
 		}
 	}
 }

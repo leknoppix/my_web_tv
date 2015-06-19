@@ -4,3 +4,7 @@ function debug($var = null){
 	print_r($var);
 	echo "</pre>";
 }
+/* fonction pour écrire */
+function write($text){
+	echo $text;
+}

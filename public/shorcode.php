@@ -79,5 +79,5 @@ function parsearray($arrays = null){
 		$retourne.= "<a href=\"http://www.youtube.com/watch?v=". $key->videoId ."\"><img src=\"".$key->ImageUrl . "\" title=\"" . $key->title . "\" alt=\"" . $key->title ."\" /></a>";
 		$retourne.= "<hr />";
 	}
-	echo $retourne;
+	write($retourne);
 }
