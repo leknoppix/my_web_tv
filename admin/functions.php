@@ -160,9 +160,8 @@ function admin_youtube_token(){
 			</script>
 			<?php
 			*/
-			 add_action('init', 'redirection', 1, 1);
-			 do_action('init', $link);
-			// wp_redirect($link, 302);
+			wp_redirect($link, 302);
+			die();
 		}
 		else
 		{
