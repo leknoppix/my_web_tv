@@ -14,5 +14,6 @@ include_once(dirname(__FILE__)."/admin/functions.php");
 include_once(dirname(__FILE__)."/lib/function.php");
 include_once(dirname(__FILE__)."/public/shortcode.php");
 /* création du menu */
+add_action('init', 'redirection_token');
 add_action('admin_menu', 'add_menu');
 add_shortcode('ListVideo', 'mywt_ListVideo');

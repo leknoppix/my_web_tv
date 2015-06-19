@@ -1,7 +1,24 @@
 <?php
-function redirection($link = null){
-	header('Location: ' . $link);
-	die();
+function redirection_token(){
+	if(isset($_GET['code']))
+		{
+			$options = $newoptions = get_option('my_webtvparams');
+			$link = admin_url('admin.php?page=admin_youtube_token');
+			$clientId = $newoptions['youtube_oauth_client'];
+			$clientSecret = $newoptions['youtube_password_oauth_client'];
+			$client = new Google_Client();
+			$client->setClientId($clientId);
+			$client->setClientSecret($clientSecret);
+			$client->setRedirectUri($link);
+			$client->setScopes('https://www.googleapis.com/auth/youtube');
+			$youtube = new Google_Service_YouTube($client);
+			$client->authenticate($_GET['code']);
+			$token = $client->getAccessToken();
+			$newoptions['youtube_token']=$token;
+			update_option('my_webtvparams', $newoptions);
+			wp_redirect($link, 302);
+			die();
+		}
 }
 function admin_youtube(){
 }
@@ -137,9 +154,9 @@ function admin_youtube_token(){
 	}
 	else
 	{
-		if(isset($_GET['code']))
+		if(!isset($_GET['code']))
 		{
-			$link = admin_url('admin.php?page=admin_youtube_token');
+			/*$link = admin_url('admin.php?page=admin_youtube_token');
 			$clientId = $newoptions['youtube_oauth_client'];
 			$clientSecret = $newoptions['youtube_password_oauth_client'];
 			$client = new Google_Client();
@@ -159,12 +176,11 @@ function admin_youtube_token(){
 				document.location.href="<?php echo $link; ?>"
 			</script>
 			<?php
-			*/
 			wp_redirect($link, 302);
 			die();
 		}
 		else
-		{
+		{*/
 			$link = admin_url('admin.php?page=admin_youtube_token');
 			$clientId = $newoptions['youtube_oauth_client'];
 			$clientSecret = $newoptions['youtube_password_oauth_client'];
