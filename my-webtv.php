@@ -11,6 +11,7 @@ License: Private
 include_once(dirname(__FILE__)."/vendor/autoload.php");
 include_once(dirname(__FILE__)."/admin/init.php");
 include_once(dirname(__FILE__)."/admin/functions.php");
+include_once(dirname(__FILE__)."/admin/actions.php");
 include_once(dirname(__FILE__)."/lib/function.php");
 include_once(dirname(__FILE__)."/public/shortcode.php");
 /* création du menu */
